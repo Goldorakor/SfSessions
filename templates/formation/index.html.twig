@@ -8,7 +8,7 @@
 
     {% for formation in formations %}
 
-        {{ formation.nomFormation }}<br>
+        <a href="{{ path('show_formation', {'id' : formation.id}) }}">{{ formation.nomFormation }}</a><br>
         
     {% endfor %}
 

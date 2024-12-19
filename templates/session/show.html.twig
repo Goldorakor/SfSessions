@@ -1,0 +1,76 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détails d'une session{% endblock %}
+
+{% block body %}
+
+    <h1>Détails d'une session</h1>
+
+    {# on prévoit 3 cas possibles : la session n'a pas commencé, la session est en cours, la session est finie #}
+    {# date now < date début : session à venir -> la session débutera le ... et finira le ... #}
+    {# date début < date now < date fin : session en cours -> la session a débuté le ... et finira le ... </date> #}
+    {# date now > date fin : session terminée -> la session a débuté le ... et a fini le ... #}
+    
+    {% if session.dateDebut > now and session.dateFin > now %}
+        <p>
+            La session "{{ session.nomSession }}" débutera le {{ session.dateDebut | date("m-d-Y") }} et finira le {{ session.dateFin | date("m-d-Y") }}.
+        </p>
+    {% elseif session.dateDebut <= now and session.dateFin > now %}
+        <p>
+            La session "{{ session.nomSession }}" a débuté le {{ session.dateDebut | date("m-d-Y") }} et finira le {{ session.dateFin | date("m-d-Y") }}.
+        </p>
+    {% else %}
+        <p>
+            La session "{{ session.nomSession }}" a débuté le {{ session.dateDebut | date("m-d-Y") }} et a fini le {{ session.dateFin | date("m-d-Y") }}.
+        </p>
+    {% endif %}
+    
+
+    {# on prévoit 3 cas possibles : la session n'a pas commencé, la session est en cours, la session est finie #}
+    {# cas 1 : Le formateur référent sera #}
+    {# cas 2 : Le formateur référent est #}
+    {# cas 3 : Le formateur référent était #}
+
+    {% if session.dateDebut > now and session.dateFin > now %}
+        <p>
+            Le formateur référent sera : <a href="{{ path('show_formateur', {'id' : session.formateur.id}) }}">{{ session.formateur.prenom }} {{ session.formateur.nom }}</a>, joignable à cette adresse : {{ session.formateur.email }}.
+        </p>
+    {% elseif session.dateDebut <= now and session.dateFin > now %}
+        <p>
+            Le formateur référent est : <a href="{{ path('show_formateur', {'id' : session.formateur.id}) }}">{{ session.formateur.prenom }} {{ session.formateur.nom }}</a>, joignable à cette adresse : {{ session.formateur.email }}.
+        </p>
+    {% else %}
+        <p>
+            Le formateur référent était : <a href="{{ path('show_formateur', {'id' : session.formateur.id}) }}">{{ session.formateur.prenom }} {{ session.formateur.nom }}</a>, joignable à cette adresse : {{ session.formateur.email }}.
+        </p>
+    {% endif %}
+
+
+    {% if session.dateDebut > now and session.dateFin > now %}
+        <p>
+            Places disponibles pour cette session : {{ session.nbPlaces  -  session.stagiaires | length }}
+        </p>
+    {% endif %}
+
+
+    <h2>Apprenants de la session</h2>
+
+    {% for stagiaire in session.stagiaires %}
+
+        <a href="{{ path('show_formateur', {'id' : stagiaire.id}) }}">{{ stagiaire.prenom }} {{ stagiaire.nom }}</a> ({{ stagiaire.ville }})<br>
+        
+    {% endfor %}
+
+    <h2>Modules d'enseignement enseignés dans la session</h2>
+
+    {% for programme in session.programmes %}
+
+        {# {{ programme.sessionModule.nomSessionModule }} de la catégorie <a href="{{ path('show_categorie', {'id' : programme.sessionModule.categorie.id}) }}">{{ programme }}</a><br> #}
+
+        {{ programme.sessionModule.nomSessionModule }} de la catégorie <a href="{{ path('show_categorie', {'id' : programme.sessionModule.categorie.id}) }}">{{ programme.sessionModule.categorie.nomCategorie }}</a><br>
+        
+    {% endfor %}
+    
+{% endblock %}
+
+

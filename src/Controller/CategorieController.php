@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Categorie;
 use App\Repository\CategorieRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -18,4 +19,13 @@ class CategorieController extends AbstractController
             'categories' => $categories,
         ]);
     }
+
+    #[Route('/categorie/{id}', name: 'show_categorie')]
+    public function show(Categorie $categorie): Response
+    {
+        return $this->render('categorie/show.html.twig', [
+            'categorie' => $categorie,
+        ]);
+    }
+
 }

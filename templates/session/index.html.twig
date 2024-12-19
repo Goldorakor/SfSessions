@@ -8,7 +8,7 @@
 
     {% for session in sessions %}
 
-        {{ session.nomSession }}<br>
+    <a href="{{ path('show_session', {'id' : session.id}) }}">{{ session.nomSession }}</a><br>
         
     {% endfor %}
 

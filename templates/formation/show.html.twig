@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détails d'une formation{% endblock %}
+
+{% block body %}
+
+    <h1>Détails d'une formation</h1>
+
+    <p>
+        {{ formation.nomFormation }}
+    </p>
+
+
+    <h1>Liste des sessions pour cette formation :</h1>
+    
+    <h2>Sessions terminées :</h2>
+
+    {% for session in formation.sessions %}
+        <a href="{{ path('show_session', {'id' : session.id}) }}">{{ session.nomSession }}</a>
+    {% endfor %}
+
+    <h2>Sessions en cours :</h2>
+
+    {% for session in formation.sessions %}
+    <a href="{{ path('show_session', {'id' : session.id}) }}">{{ session.nomSession }}</a>
+    {% endfor %}
+
+    <h2>Sessions à venir :</h2>
+
+    {% for session in formation.sessions %}
+    <a href="{{ path('show_session', {'id' : session.id}) }}">{{ session.nomSession }}</a>
+    {% endfor %}
+    
+{% endblock %}
+
+
+

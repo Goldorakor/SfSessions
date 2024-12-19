@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détails d'une catégorie{% endblock %}
+
+{% block body %}
+
+    <h1>Détails d'une catégorie</h1>
+
+    <p>
+        {{ categorie.nomCategorie }}
+    </p>
+
+
+    <h1>Modules qui appartiennent à cette catégorie :</h1>
+    
+    {% for  in categorie.sessionModules %}
+        {{ sessionModules.nomSessionModule }}
+    {% endfor %}
+    
+{% endblock %}

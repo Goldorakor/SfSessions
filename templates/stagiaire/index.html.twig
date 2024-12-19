@@ -8,7 +8,7 @@
 
     {% for stagiaire in stagiaires %}
 
-        {{ stagiaire.nom }}<br>
+    <a href="{{ path('show_stagiaire', {'id' : stagiaire.id}) }}">{{ stagiaire.prenom }} {{ stagiaire.nom }}</a> - habitant à {{ stagiaire.ville }}<br>
         
     {% endfor %}
 

@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Formateur;
 use App\Repository\FormateurRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -18,4 +19,14 @@ class FormateurController extends AbstractController
             'formateurs' => $formateurs,
         ]);
     }
+
+    
+    #[Route('/formateur/{id}', name: 'show_formateur')]
+    public function show(Formateur $formateur): Response
+    {
+        return $this->render('formateur/show.html.twig', [
+            'formateur' => $formateur,
+        ]);
+    }
+
 }

@@ -185,4 +185,21 @@ class Session
 
         return $this;
     }
+
+    /* pour le moment, je n'en ai pas besoin.
+    public function getIntDebut(): ?string
+    {
+        $now = new \DateTime();
+        $interval = $this->dateDebut->diff($now);
+        return $interval->format("%a"); // $interval est un objet de la classe DateInterval : la méthode format() n'a pas la syntaxe de la méthode format() de la classe DateTime
+    }
+
+    public function getIntFin(): ?string
+    {
+        $now = new \DateTime();
+        $interval = $this->dateFin->diff($now);
+        return $interval->format("%a"); // $interval est un objet de la classe DateInterval : la méthode format() n'a pas la syntaxe de la méthode format() de la classe DateTime
+    }
+    */
+
 }

@@ -66,4 +66,8 @@ class Programme
 
         return $this;
     }
+
+    public function __toString() {
+        return $this->getSessionModule()." (".$this->getSessionModule()->getCategorie().")".$this->getNbJours();
+    }
 }

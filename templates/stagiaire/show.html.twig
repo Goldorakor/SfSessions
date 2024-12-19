@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détails d'un stagiaires{% endblock %}
+
+{% block body %}
+
+    <h1>Détails d'un stagiaire</h1>
+
+    <p>
+        {{ stagiaire.prenom }} {{ stagiaire.nom }}
+    </p>
+
+    <p>
+        {{ stagiaire.adresse }} {{ stagiaire.codePostal }} {{ stagiaire.ville }}
+    </p>
+
+    <h1>Sessions auxquelles le stagiaire est attaché :</h1>
+    
+    {% for session in stagiaire.sessions %}
+    <a href="{{ path('show_formateur', {'id' : session.id}) }}">{{ session.nomSession }}</a>
+    {% endfor %}
+    
+{% endblock %}

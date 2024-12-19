@@ -50,4 +50,8 @@ class SessionModule
 
         return $this;
     }
+
+    public function __toString() {
+        return $this->nomSessionModule;
+    }
 }

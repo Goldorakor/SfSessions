@@ -8,7 +8,7 @@
 
     {% for formateur in formateurs %}
 
-        {{ formateur.nom }}<br>
+    <a href="{{ path('show_formateur', {'id' : formateur.id}) }}">{{ formateur.prenom }} {{ formateur.nom }}</a> - joignable à l'adresse : {{ formateur.email }}<br>
         
     {% endfor %}
 
