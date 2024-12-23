@@ -15,21 +15,33 @@
     
     <h2>Sessions terminées :</h2>
 
-    {% for session in formation.sessions %}
-        <a href="{{ path('show_session', {'id' : session.id}) }}">{{ session.nomSession }}</a>
-    {% endfor %}
+    {% if session.dateDebut < now and session.dateFin < now %} {# session.dateFin < now #}
+
+        {% for session in formation.sessions %}
+            <a href="{{ path('show_session', {'id' : session.id}) }}">{{ session.nomSession }}</a>
+        {% endfor %}
+
+    {% endif %}
 
     <h2>Sessions en cours :</h2>
 
-    {% for session in formation.sessions %}
-    <a href="{{ path('show_session', {'id' : session.id}) }}">{{ session.nomSession }}</a>
-    {% endfor %}
+    {% if session.dateDebut <= now and session.dateFin >= now %}
+
+        {% for session in formation.sessions %}
+            <a href="{{ path('show_session', {'id' : session.id}) }}">{{ session.nomSession }}</a>
+        {% endfor %}
+
+    {% endif %}
 
     <h2>Sessions à venir :</h2>
 
-    {% for session in formation.sessions %}
-    <a href="{{ path('show_session', {'id' : session.id}) }}">{{ session.nomSession }}</a>
-    {% endfor %}
+    {% if session.dateDebut > now and session.dateFin > now %} {# session.dateDebut > now #}
+
+        {% for session in formation.sessions %}
+            <a href="{{ path('show_session', {'id' : session.id}) }}">{{ session.nomSession }}</a>
+        {% endfor %}
+
+    {% endif %}
     
 {% endblock %}
 

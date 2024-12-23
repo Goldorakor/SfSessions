@@ -13,8 +13,8 @@
 
     <h1>Modules qui appartiennent à cette catégorie :</h1>
     
-    {% for  in categorie.sessionModules %}
-        {{ sessionModules.nomSessionModule }}
+    {% for sessionModule in categorie.sessionModules %}
+        {{ sessionModule.nomSessionModule }}
     {% endfor %}
     
 {% endblock %}

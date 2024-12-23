@@ -2,11 +2,12 @@
 
 namespace App\Entity;
 
-use App\Repository\FormationRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\FormationRepository;
 use Symfony\UX\Turbo\Attribute\Broadcast;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+
 
 #[ORM\Entity(repositoryClass: FormationRepository::class)]
 #[Broadcast]
@@ -76,5 +77,10 @@ class Formation
         }
 
         return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->NomFormation;
     }
 }

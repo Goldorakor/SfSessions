@@ -35,7 +35,7 @@
         <p>
             Le formateur référent sera : <a href="{{ path('show_formateur', {'id' : session.formateur.id}) }}">{{ session.formateur.prenom }} {{ session.formateur.nom }}</a>, joignable à cette adresse : {{ session.formateur.email }}.
         </p>
-    {% elseif session.dateDebut <= now and session.dateFin > now %}
+    {% elseif session.dateDebut <= now and session.dateFin >= now %}
         <p>
             Le formateur référent est : <a href="{{ path('show_formateur', {'id' : session.formateur.id}) }}">{{ session.formateur.prenom }} {{ session.formateur.nom }}</a>, joignable à cette adresse : {{ session.formateur.email }}.
         </p>
@@ -65,9 +65,11 @@
 
     {% for programme in session.programmes %}
 
-        {# {{ programme.sessionModule.nomSessionModule }} de la catégorie <a href="{{ path('show_categorie', {'id' : programme.sessionModule.categorie.id}) }}">{{ programme }}</a><br> #}
+        test 1 {{ programme.sessionModule }} de la catégorie <a href="{{ path('show_categorie', {'id' : programme.sessionModule.categorie.id}) }}">{{ programme.sessionModule.categorie }}</a><br>
 
-        {{ programme.sessionModule.nomSessionModule }} de la catégorie <a href="{{ path('show_categorie', {'id' : programme.sessionModule.categorie.id}) }}">{{ programme.sessionModule.categorie.nomCategorie }}</a><br>
+        {# {{ programme.sessionModule }} de la catégorie <a href="{{ path('show_categorie', {'id' : programme.sessionModule.categorie.id}) }}">{{ programme }}</a><br> #}
+
+        test 2 {{ programme.sessionModule.nomSessionModule }} de la catégorie <a href="{{ path('show_categorie', {'id' : programme.sessionModule.categorie.id}) }}">{{ programme.sessionModule.categorie.nomCategorie }}</a><br>
         
     {% endfor %}
     

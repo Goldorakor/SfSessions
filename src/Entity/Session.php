@@ -9,6 +9,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\UX\Turbo\Attribute\Broadcast;
 
+
 #[ORM\Entity(repositoryClass: SessionRepository::class)]
 #[Broadcast]
 class Session
@@ -201,5 +202,10 @@ class Session
         return $interval->format("%a"); // $interval est un objet de la classe DateInterval : la méthode format() n'a pas la syntaxe de la méthode format() de la classe DateTime
     }
     */
+
+    public function __toString() 
+    {
+        return $this->nomSession;
+    }
 
 }

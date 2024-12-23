@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\UX\Turbo\Attribute\Broadcast;
 
+
 #[ORM\Entity(repositoryClass: StagiaireRepository::class)]
 #[Broadcast]
 class Stagiaire
@@ -133,5 +134,17 @@ class Stagiaire
         }
 
         return $this;
+    }
+
+    public function getAge(): ?string
+    {
+        $now = new \DateTime();
+        $interval = $this->dateNaissance->diff($now);
+        return $interval->format("%Y"); // $interval est un objet de la classe DateInterval : la méthode format() n'a pas la syntaxe de la méthode format() de la classe DateTime
+    }
+
+    public function __toString()
+    {
+        return $this->Prenom." ".$this->Nom;
     }
 }

@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajouter une catégorie{% endblock %}
+
+{% block body %}
+
+    <h1>Ajouter une catégorie</h1>
+
+ 
+    {# {{ form(formAddCategorie) }} #}
+
+    {{ form_start(formAddCategorie) }}
+
+        <div class="row">
+
+            <div class="col-sm">
+                {{ form_row(formAddCategorie.nomCategorie) }}
+            </div> 
+     
+        </div><br>
+
+        {# on ne modifie pas l'affichage des derniers champs #}
+       
+        {{ form_row(formAddCategorie.valider) }}
+
+    {{ form_end(formAddCategorie) }}
+
+
+
+    
+<!--
+
+https://symfony.com/doc/current/forms.html#rendering-forms 
+
+{# templates/task/new.html.twig #}
+\{\{ form(form) }} -> risque de confusion avec la syntaxe form*1(form*2) 
+form*1 est le nom de la fonction qui permet de récupérer le formulaire (fonction à appeler pour rendre le formulaire visible) 
+l'argument form*2 dedans est le nom de la variable qui provient du controller employe dans la public function new() : 'form' => $form,
+
+on va donc changer le nom de la variable dans le EmployeController pour éviter toute ambiguité : 'form' -> 'formAddEmploye'
+
+-->
+
+
+{% endblock %}

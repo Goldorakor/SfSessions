@@ -1,0 +1,77 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajouter une session{% endblock %}
+
+{% block body %}
+
+    <h1>Ajouter une session</h1>
+
+    
+    {#{{ form(formAddSession) }} #}
+
+
+    {{ form_start(formAddSession) }} 
+
+        <div class="row">
+
+            <div class="col-sm">
+                {{ form_row(formAddSession.nomSession) }}
+            </div>
+
+        </div><br>
+
+        <div class="row">
+
+            <div class="col-sm">
+                {{ form_row(formAddSession.nbPlaces) }}
+            </div>
+
+            <div class="col-sm">
+                {{ form_row(formAddSession.dateDebut) }}
+            </div>
+
+            <div class="col-sm">
+                {{ form_row(formAddSession.dateFin) }}
+            </div>
+
+        </div><br>
+
+        <div class="row">
+            
+            <div class="col-sm">
+                {{ form_row(formAddSession.formateur) }}
+            </div>
+            
+        </div><br>
+
+        <div class="row">
+            
+            <div class="col-sm">
+                {{ form_row(formAddSession.formation) }}
+            </div>
+            
+        </div><br>
+
+        {# on ne modifie pas l'affichage des derniers champs #}
+       
+        {{ form_row(formAddSession.valider) }}
+
+    {{ form_end(formAddSession) }}
+
+ 
+    
+<!--
+
+https://symfony.com/doc/current/forms.html#rendering-forms 
+
+{# templates/task/new.html.twig #}
+\{\{ form(form) }} -> risque de confusion avec la syntaxe form*1(form*2) 
+form*1 est le nom de la fonction qui permet de récupérer le formulaire (fonction à appeler pour rendre le formulaire visible) 
+l'argument form*2 dedans est le nom de la variable qui provient du controller employe dans la public function new() : 'form' => $form,
+
+on va donc changer le nom de la variable dans le EmployeController pour éviter toute ambiguité : 'form' -> 'formAddEmploye'
+
+-->
+
+
+{% endblock %}

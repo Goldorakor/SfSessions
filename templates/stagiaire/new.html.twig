@@ -1,0 +1,65 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajouter un stagiaire{% endblock %}
+
+{% block body %}
+
+    <h1>Ajouter un stagiaire</h1>
+
+
+
+    {#  {{ form(formAddStagiaire) }} #}
+
+    
+    {{ form_start(formAddStagiaire) }}
+
+        <div class="row">
+
+            <div class="col-sm">
+                {{ form_row(formAddStagiaire.nom) }}
+            </div>
+
+            <div class="col-sm">
+                {{ form_row(formAddStagiaire.prenom) }}
+            </div>
+
+        </div>
+
+        <div class="row">
+
+            <div class="col-sm">
+                {{ form_row(formAddStagiaire.adresse) }}
+            </div>
+
+            <div class="col-sm">
+                {{ form_row(formAddStagiaire.codePostal) }}
+            </div>
+
+            <div class="col-sm">
+                {{ form_row(formAddStagiaire.ville) }}
+            </div>
+            
+        </div>
+
+        {# on ne modifie pas l'affichage du dernier champ #}
+
+        {{ form_row(formAddStagiaire.valider) }} 
+
+    {{ form_end(formAddStagiaire) }}
+
+   
+
+<!--
+
+https://symfony.com/doc/current/forms.html#rendering-forms 
+
+{# templates/task/new.html.twig #}
+\{\{ form(form) }} -> risque de confusion avec la syntaxe form*1(form*2) 
+form*1 est le nom de la fonction qui permet de récupérer le formulaire (fonction à appeler pour rendre le formulaire visible) 
+l'argument form*2 dedans est le nom de la variable qui provient du controller employe dans la public function new() : 'form' => $form,
+
+on va donc changer le nom de la variable dans le EmployeController pour éviter toute ambiguité : 'form' -> 'formAddEmploye'
+
+-->
+
+{% endblock %}

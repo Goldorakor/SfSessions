@@ -2,11 +2,12 @@
 
 namespace App\Entity;
 
-use App\Repository\FormateurRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\FormateurRepository;
 use Symfony\UX\Turbo\Attribute\Broadcast;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+
 
 #[ORM\Entity(repositoryClass: FormateurRepository::class)]
 #[Broadcast]
@@ -106,5 +107,17 @@ class Formateur
         }
 
         return $this;
+    }
+
+    public function getAge(): ?string
+    {
+        $now = new \DateTime();
+        $interval = $this->dateNaissance->diff($now);
+        return $interval->format("%Y"); // $interval est un objet de la classe DateInterval : la méthode format() n'a pas la syntaxe de la méthode format() de la classe DateTime
+    }
+
+    public function __toString()
+    {
+        return $this->Prenom." ".$this->Nom;
     }
 }

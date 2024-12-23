@@ -2,9 +2,12 @@
 
 namespace App\Entity;
 
-use App\Repository\SessionModuleRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\UX\Turbo\Attribute\Broadcast;
+use App\Repository\SessionModuleRepository;
+use Doctrine\Common\Collections\Collection; // rajouté à nla main
+use Doctrine\Common\Collections\ArrayCollection; // rajouté à la main
+
 
 #[ORM\Entity(repositoryClass: SessionModuleRepository::class)]
 #[Broadcast]
@@ -51,7 +54,8 @@ class SessionModule
         return $this;
     }
 
-    public function __toString() {
+    public function __toString() 
+    {
         return $this->nomSessionModule;
     }
 }
