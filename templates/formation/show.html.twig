@@ -14,39 +14,79 @@
     
     <h2>Sessions terminées :</h2>
 
-    {# {% if formation.session.dateDebut < now and formation.session.dateFin < now %} #} {# session.dateFin < now #}
+    {# méthode juste mais pas de message si 0 résultat !
+    {% for session in formation.sessions %}
+        {% if session.dateDebut < now and session.dateFin < now %}
+            <a href="{{ path('show_session', {'id' : session.id}) }}">{{ session.nomSession }}</a><br>
+        {% endif %}
+    {% endfor %} #}
 
-        {% for session in formation.sessions %}
-            {% if session.dateDebut < now and session.dateFin < now %}
-                <a href="{{ path('show_session', {'id' : session.id}) }}">{{ session.nomSession }}</a><br>
-            {% endif %}
-        {% endfor %}
+    {# méthode incorrecte car le if ne peut pas être placé dans la boucle !
+    {% for session in formation.sessions if session.dateDebut < now and session.dateFin < now %}
+        <a href="{{ path('show_session', {'id' : session.id}) }}">{{ session.nomSession }}</a><br>
+    {% else %}
+        <p>Aucune session terminée pour cette formation./p>
+    {% endfor %} #} 
 
-    {# {% endif %} #}
+
+    {# Explications :
+    Variable hasSessions : on initialise hasSessions à false avant la boucle. Si une session répond aux critères, on la met à true.
+    Boucle for : La boucle vérifie chaque session et affiche les résultats si la condition est remplie.
+    Condition après la boucle : Si hasSessions est toujours false après la boucle, on affiche un message. #}
+        
+    {% set hasSessions = false %}
+    {% for session in formation.sessions %}
+        {% if session.dateDebut < now and session.dateFin < now %}
+            {% set hasSessions = true %}
+            <a href="{{ path('show_session', {'id': session.id}) }}">{{ session.nomSession }}</a><br>
+        {% endif %}
+    {% endfor %}
+
+    {% if not hasSessions %}
+        <p>Aucune session terminée pour cette formation.</p>
+    {% endif %}
 
     <h2>Sessions en cours :</h2>
 
-    {# {% if formation.session.dateDebut <= now and formation.session.dateFin >= now %} #}
+    {# méthode juste mais pas de message si 0 résultat !
+    {% for session in formation.sessions %}
+        {% if session.dateDebut <= now and session.dateFin >= now %}
+            <a href="{{ path('show_session', {'id' : session.id}) }}">{{ session.nomSession }}</a><br>
+        {% endif %}
+    {% endfor %} #}
 
-        {% for session in formation.sessions %}
-            {% if session.dateDebut <= now and session.dateFin >= now %}
-                <a href="{{ path('show_session', {'id' : session.id}) }}">{{ session.nomSession }}</a><br>
-            {% endif %}
-        {% endfor %}
+    {% set hasSessions = false %}
+    {% for session in formation.sessions %}
+        {% if session.dateDebut <= now and session.dateFin >= now %}
+            {% set hasSessions = true %}
+            <a href="{{ path('show_session', {'id': session.id}) }}">{{ session.nomSession }}</a><br>
+        {% endif %}
+    {% endfor %}
 
-    {# {% endif %} #}
+    {% if not hasSessions %}
+        <p>Aucune session en cours pour cette formation.</p>
+    {% endif %}
 
     <h2>Sessions à venir :</h2>
 
-    {# {% if formation.session.dateDebut > now and formation.session.dateFin > now %} #} {# session.dateDebut > now #}
+    {# méthode juste mais pas de message si 0 résultat !
+    {% for session in formation.sessions %}
+        {% if session.dateDebut > now and session.dateFin > now %}
+            <a href="{{ path('show_session', {'id' : session.id}) }}">{{ session.nomSession }}</a><br>
+        {% endif %}    
+    {% endfor %} #}
 
-        {% for session in formation.sessions %}
-            {% if session.dateDebut > now and session.dateFin > now %}
-                <a href="{{ path('show_session', {'id' : session.id}) }}">{{ session.nomSession }}</a><br>
-            {% endif %}    
-        {% endfor %}
+    {% set hasSessions = false %}
+    {% for session in formation.sessions %}
+        {% if session.dateDebut > now and session.dateFin > now %}
+            {% set hasSessions = true %}
+            <a href="{{ path('show_session', {'id': session.id}) }}">{{ session.nomSession }}</a><br>
+        {% endif %}
+    {% endfor %}
 
-    {# {% endif %} #}
+    {% if not hasSessions %}
+        <p>Aucune session à venir pour cette formation.</p>
+    {% endif %}
     
 {% endblock %}
 
