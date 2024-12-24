@@ -61,6 +61,16 @@
         
     {% endfor %}
 
+
+    <h2>Apprenants non inscrits à la session</h2>
+
+    {% for stagiaire in nonInscrits %}
+
+        <a href="{{ path('show_formateur', {'id' : stagiaire.id}) }}">{{ stagiaire.prenom }} {{ stagiaire.nom }}</a> ({{ stagiaire.ville }})<br>
+        
+    {% endfor %}
+
+
     <h2>Modules d'enseignement enseignés dans la session</h2>
 
     {% for programme in session.programmes %}
@@ -70,6 +80,17 @@
         {# {{ programme.sessionModule }} de la catégorie <a href="{{ path('show_categorie', {'id' : programme.sessionModule.categorie.id}) }}">{{ programme }}</a><br> #}
 
         test 2 {{ programme.sessionModule.nomSessionModule }} de la catégorie <a href="{{ path('show_categorie', {'id' : programme.sessionModule.categorie.id}) }}">{{ programme.sessionModule.categorie.nomCategorie }}</a><br>
+        
+    {% endfor %}
+
+
+    <h2>Modules d'enseignement non enseignés dans la session</h2>
+
+    {% for module in nonProgrammes %}
+
+        {{ module.nomSessionModule }} de la catégorie <a href="{{ path('show_categorie', {'id' : module.categorie.id}) }}">{{ module.categorie }}</a><br>
+
+        {# {{ programme.sessionModule }} de la catégorie <a href="{{ path('show_categorie', {'id' : programme.sessionModule.categorie.id}) }}">{{ programme }}</a><br> #}
         
     {% endfor %}
     
