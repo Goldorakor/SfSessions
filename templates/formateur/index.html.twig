@@ -6,10 +6,57 @@
 
     <h1>Liste des formateurs</h1>
 
+    {#
     {% for formateur in formateurs %}
-
-    <a href="{{ path('show_formateur', {'id' : formateur.id}) }}">{{ formateur.prenom }} {{ formateur.nom }}</a> - joignable à l'adresse : {{ formateur.email }}<br>
-        
+        <a href="{{ path('show_formateur', {'id' : formateur.id}) }}">{{ formateur.prenom }} {{ formateur.nom }}</a> - joignable à l'adresse : {{ formateur.email }}<br>
     {% endfor %}
+    #}
+
+    {% if formateurs | length > 0 %}
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>
+                    Prénom et nom du formateur
+                </th>
+                <th>
+                    Email
+                </th>
+                <th>
+                    Editer le profil
+                </th>
+                <th>
+                    Supprimer le profil
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for formateur in formateurs %}
+                <tr>
+                    <td>
+                        <a href="{{ path('show_formateur', {'id' : formateur.id}) }}">{{ formateur.prenom }} {{ formateur.nom }}</a>
+                    </td>
+                    <td>
+                        {{ formateur.email }}
+                    </td>
+                    <td>
+                        <a class="btn btn-warning" href="{{ path('edit_formateur', {'id' : formateur.id}) }}">Editer le formateur</a>
+                    </td>
+                    <td>
+                        <a class="btn btn-danger" href="{{ path('delete_formateur', {'id' : formateur.id}) }}">Supprimer le formateur</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    {% else %}
+
+    <p>Aucun formateur dans l'annuaire des formateurs.</p>
+
+    {% endif %}
+
+    <a class="btn btn-success" href="{{ path('new_formateur') }}">Créer un formateur</a>
 
 {% endblock %}

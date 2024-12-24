@@ -24,18 +24,15 @@ class StagiaireController extends AbstractController
     }
 
 
+
     #[Route('/stagiaire/new', name: 'new_stagiaire')] // 'new_stagiaire' est un nom cohérent qui décrit bien la fonction
-
     #[Route('/stagiaire/{id}/edit', name: 'edit_stagiaire')] // 'edit_stagiaire' est un nom cohérent qui décrit bien la fonction attendue
-
     public function new_edit(Stagiaire $stagiaire = null, Request $request, EntityManagerInterface $entityManager): Response // pour ajouter une entreprise à notre BDD
     {
-       
         // 1. si pas de stagiaire, on crée un nouveau stagiaire (un objet stagiaire est bien créé ici) - s'il existe déjà, pas besoin de le créer
         if(!$stagiaire) {
             $stagiaire = new Stagiaire();
         }
-
 
         // 2. on crée le formulaire à partir de StagiaireType (on veut ce modèle là bien entendu)
         $form = $this->createForm(StagiaireType::class, $stagiaire); // c'est bien la méthode createForm() qui permet de créer le formulaire
@@ -56,7 +53,6 @@ class StagiaireController extends AbstractController
             return $this->redirectToRoute('app_stagiaire');
         }
 
-
         // 3. on affiche le formulaire créé dans la page dédiée à cet affichage -> {{ form(formAddStagiaire) }} --> affichage par défaut 
         return $this->render('stagiaire/new.html.twig', [ // 'stagiaire/new.html.twig' -> vue dédiée à l'affichage du formulaire : on crée un nouveau fichier dans le dossier stagiaire
             // 'form' => $form,  on fait passer une variable form qui prend la valeur $form
@@ -65,6 +61,7 @@ class StagiaireController extends AbstractController
             'edit' => $stagiaire->getId() // comportement booléen
         ]);
     }
+
 
 
     #[Route('/stagiaire/{id}/delete', name: 'delete_stagiaire')]
@@ -76,6 +73,7 @@ class StagiaireController extends AbstractController
         return $this->redirectToRoute('app_stagiaire'); // après une suppression, on redirige vers la liste de stagiaires
     }
 
+
     
     #[Route('/stagiaire/{id}', name: 'show_stagiaire')]
     public function show(Stagiaire $stagiaire): Response
@@ -84,5 +82,4 @@ class StagiaireController extends AbstractController
             'stagiaire' => $stagiaire,
         ]);
     }
-
 }

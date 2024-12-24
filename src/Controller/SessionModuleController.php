@@ -24,18 +24,16 @@ class SessionModuleController extends AbstractController
         ]);
     }
 
+
+
     #[Route('/sessionModule/new', name: 'new_sessionModule')] // 'new_sessionModule' est un nom cohérent qui décrit bien la fonction
-
     #[Route('/sessionModule/{id}/edit', name: 'edit_sessionModule')] // 'edit_sessionModule' est un nom cohérent qui décrit bien la fonction attendue
-
     public function new_edit(SessionModule $sessionModule = null, Request $request, EntityManagerInterface $entityManager): Response // pour ajouter un sessionModule à notre BDD
     {
-       
         // 1. si pas de stagiaire, on crée un nouveau stagiaire (un objet stagiaire est bien créé ici) - s'il existe déjà, pas besoin de le créer
         if(!$sessionModule) {
             $sessionModule = new SessionModule();
         }
-
 
         // 2. on crée le formulaire à partir de SessionModuleType (on veut ce modèle là bien entendu)
         $form = $this->createForm(SessionModuleType::class, $sessionModule); // c'est bien la méthode createForm() qui permet de créer le formulaire
@@ -56,7 +54,6 @@ class SessionModuleController extends AbstractController
             return $this->redirectToRoute('app_sessionModule');
         }
 
-
         // 3. on affiche le formulaire créé dans la page dédiée à cet affichage -> {{ form(formAddCategorie) }} --> affichage par défaut 
         return $this->render('sessionModule/new.html.twig', [ // 'categorie/new.html.twig' -> vue dédiée à l'affichage du formulaire : on crée un nouveau fichier dans le dossier categorie
             // 'form' => $form,  on fait passer une variable form qui prend la valeur $form
@@ -67,6 +64,7 @@ class SessionModuleController extends AbstractController
     }
 
 
+    
     #[Route('/sessionModule/{id}/delete', name: 'delete_sessionModule')]
     public function delete(SessionModule $sessionModule, EntityManagerInterface $entityManager): Response
     {

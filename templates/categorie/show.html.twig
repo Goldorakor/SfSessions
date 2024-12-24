@@ -13,8 +13,59 @@
 
     <h1>Modules qui appartiennent à cette catégorie :</h1>
     
+    {#
     {% for sessionModule in categorie.sessionModules %}
-        {{ sessionModule.nomSessionModule }}
+        {{ sessionModule.nomSessionModule }}<br>
     {% endfor %}
+    #}
+
+    {% if categorie.sessionModules | length > 0 %}
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>
+                        Nom du module
+                    </th>
+                    <th>
+                        Editer le module
+                    </th>
+                    <th>
+                        Supprimer le module
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for sessionModule in categorie.sessionModules %}
+                    <tr>
+                        <td>
+                            {{ sessionModule.nomSessionModule }}
+                        </td>
+                        <td>
+                            <a class="btn btn-warning" href="{{ path('edit_sessionModule', {'id' : categorie.sessionModule.id}) }}">Editer le module</a>
+                        </td>
+                        <td>
+                            <a class="btn btn-danger" href="{{ path('delete_sessionModule', {'id' : categorie.sessionModule.id}) }}">Supprimer le module</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+    {% else %}
+
+        <p>Cette catégorie ne contient aucun module.</p>
+
+    {% endif %}
     
 {% endblock %}
+
+
+
+
+
+
+
+
+
+

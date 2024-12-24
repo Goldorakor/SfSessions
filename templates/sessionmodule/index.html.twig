@@ -6,32 +6,51 @@
 
     <h1>Liste globale des modules d'enseignement</h1>
 
-    <table class="table table-striped">
+    {% if sessionModules | length > 0 %}
 
-        <thead>
-            <tr>
-                <th>
-                    Module
-                </th>
-                <th>
-                    Catégorie
-                </th>
-            </tr>
-        </thead>
-
-        <tbody>
-            {% for sessionModule in sessionModules %}
+        <table class="table table-striped">
+            <thead>
                 <tr>
-                    <td>
-                        {{ sessionModule.nomSessionModule }}
-                    </td>
-                    <td>
-                        {{ sessionModule.categorie.nomCategorie }}
-                    </td>
+                    <th>
+                        Module
+                    </th>
+                    <th>
+                        Catégorie
+                    </th>
+                    <th>
+                        Editer le module
+                    </th>
+                    <th>
+                        Supprimer le module
+                    </th>
                 </tr>
-            {% endfor %}
-        </tbody>
+            </thead>
+            <tbody>
+                {% for sessionModule in sessionModules %}
+                    <tr>
+                        <td>
+                            {{ sessionModule.nomSessionModule }}
+                        </td>
+                        <td>
+                            <a href="{{ path('show_categorie', {'id' : sessionModule.categorie.id}) }}">{{ sessionModule.categorie.nomCategorie }}</a>
+                        </td>
+                        <td>
+                            <a class="btn btn-warning" href="{{ path('edit_sessionModule', {'id' : sessionModule.id}) }}">Editer le module</a>
+                        </td>
+                        <td>
+                            <a class="btn btn-danger" href="{{ path('delete_sessionModule', {'id' : sessionModule.id}) }}">Supprimer le module</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
 
-    </table>
+    {% else %}
+
+        <p>La liste globale des modules d'enseignement ne contient aucun élément.</p>
+
+    {% endif %}
+
+    <a class="btn btn-success" href="{{ path('new_sessionModule') }}">Créer un module</a>
 
 {% endblock %}

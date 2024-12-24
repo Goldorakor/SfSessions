@@ -2,15 +2,56 @@
 
 {% block title %}Liste des catégories{% endblock %}
 
-
 {% block body %}
 
     <h1>Liste des catégories</h1>
 
+    {# 
     {% for categorie in categories %}
-
         <a href="{{ path('show_categorie', {'id' : categorie.id}) }}">{{ categorie.nomCategorie }}</a><br>
-        
     {% endfor %}
+    #}
+
+
+    {% if categories | length > 0 %}
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>
+                        Nom de la catégorie
+                    </th>
+                    <th>
+                        Editer la catégorie
+                    </th>
+                    <th>
+                        Supprimer la catégorie
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for categorie in categories %}
+                    <tr>
+                        <td>
+                            <a href="{{ path('show_categorie', {'id' : categorie.id}) }}">{{ categorie.nomCategorie }}</a>
+                        </td>
+                        <td>
+                            <a class="btn btn-warning" href="{{ path('edit_categorie', {'id' : categorie.id}) }}">Editer la catégorie</a>
+                        </td>
+                        <td>
+                            <a class="btn btn-danger" href="{{ path('delete_categorie', {'id' : categorie.id}) }}">Supprimer la catégorie</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+    {% else %}
+
+        <p>La liste globale des catégories ne contient aucun élément.</p>
+
+    {% endif %}
+
+    <a class="btn btn-success" href="{{ path('new_categorie') }}">Créer une catégorie</a>
 
 {% endblock %}

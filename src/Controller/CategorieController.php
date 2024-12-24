@@ -25,18 +25,15 @@ class CategorieController extends AbstractController
     }
 
 
+
     #[Route('/categorie/new', name: 'new_categorie')] // 'new_categorie' est un nom cohérent qui décrit bien la fonction
-
     #[Route('/categorie/{id}/edit', name: 'edit_categorie')] // 'edit_categorie' est un nom cohérent qui décrit bien la fonction attendue
-
     public function new_edit(Categorie $categorie = null, Request $request, EntityManagerInterface $entityManager): Response // pour ajouter une entreprise à notre BDD
     {
-       
         // 1. si pas de stagiaire, on crée un nouveau stagiaire (un objet stagiaire est bien créé ici) - s'il existe déjà, pas besoin de le créer
         if(!$categorie) {
             $categorie = new Categorie();
         }
-
 
         // 2. on crée le formulaire à partir de CategorieType (on veut ce modèle là bien entendu)
         $form = $this->createForm(CategorieType::class, $categorie); // c'est bien la méthode createForm() qui permet de créer le formulaire
@@ -57,7 +54,6 @@ class CategorieController extends AbstractController
             return $this->redirectToRoute('app_categorie');
         }
 
-
         // 3. on affiche le formulaire créé dans la page dédiée à cet affichage -> {{ form(formAddCategorie) }} --> affichage par défaut 
         return $this->render('categorie/new.html.twig', [ // 'categorie/new.html.twig' -> vue dédiée à l'affichage du formulaire : on crée un nouveau fichier dans le dossier categorie
             // 'form' => $form,  on fait passer une variable form qui prend la valeur $form
@@ -66,6 +62,7 @@ class CategorieController extends AbstractController
             'edit' => $categorie->getId() // comportement booléen
         ]);
     }
+
 
 
     #[Route('/categorie/{id}/delete', name: 'delete_categorie')]
@@ -86,5 +83,4 @@ class CategorieController extends AbstractController
             'categorie' => $categorie,
         ]);
     }
-
 }

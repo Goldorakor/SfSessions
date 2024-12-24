@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 
+use DateTime;
 use App\Entity\Formation;
 use App\Form\FormationType;
 use App\Repository\FormationRepository;
@@ -25,18 +26,15 @@ class FormationController extends AbstractController
     }
 
 
+
     #[Route('/formation/new', name: 'new_formation')] // 'new_formation' est un nom cohérent qui décrit bien la fonction
-
     #[Route('/formation/{id}/edit', name: 'edit_formation')] // 'edit_formation' est un nom cohérent qui décrit bien la fonction attendue
-
     public function new_edit(Formation $formation = null, Request $request, EntityManagerInterface $entityManager): Response // pour ajouter une formation à notre BDD
     {
-       
         // 1. si pas de formation, on crée une nouvelle formation (un objet formation est bien créé ici) - s'il existe déjà, pas besoin de le créer
         if(!$formation) {
             $formation = new Formation();
         }
-
 
         // 2. on crée le formulaire à partir de FormationType (on veut ce modèle là bien entendu)
         $form = $this->createForm(FormationType::class, $formation); // c'est bien la méthode createForm() qui permet de créer le formulaire
@@ -57,7 +55,6 @@ class FormationController extends AbstractController
             return $this->redirectToRoute('app_formation');
         }
 
-
         // 3. on affiche le formulaire créé dans la page dédiée à cet affichage -> {{ form(formAddCategorie) }} --> affichage par défaut 
         return $this->render('formation/new.html.twig', [ // 'categorie/new.html.twig' -> vue dédiée à l'affichage du formulaire : on crée un nouveau fichier dans le dossier categorie
             // 'form' => $form,  on fait passer une variable form qui prend la valeur $form
@@ -68,6 +65,7 @@ class FormationController extends AbstractController
     }
 
 
+
     #[Route('/formation/{id}/delete', name: 'delete_formation')]
     public function delete(Formation $formation, EntityManagerInterface $entityManager): Response
     {
@@ -75,5 +73,18 @@ class FormationController extends AbstractController
         $entityManager->flush(); // on effectue la requête SQL : DELETE FROM
 
         return $this->redirectToRoute('app_formation'); // après une suppression, on redirige vers la liste de formations
+    }
+
+
+
+    #[Route('/formation/{id}', name: 'show_formation')]
+    public function show(Formation $formation): Response
+    {
+        $now = new DateTime();
+        
+        return $this->render('formation/show.html.twig', [
+            'formation' => $formation,
+            'now' => $now,
+        ]);
     }
 }

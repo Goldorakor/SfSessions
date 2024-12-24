@@ -6,10 +6,51 @@
 
     <h1>Liste des formations</h1>
 
+    {# 
     {% for formation in formations %}
-
         <a href="{{ path('show_formation', {'id' : formation.id}) }}">{{ formation.nomFormation }}</a><br>
-        
     {% endfor %}
+    #}
+
+    {% if formations | length > 0 %}
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>
+                        Nom de la formation
+                    </th>
+                    <th>
+                        Editer la formation
+                    </th>
+                    <th>
+                        Supprimer la formation
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for formation in formations %}
+                    <tr>
+                        <td>
+                            <a href="{{ path('show_formation', {'id' : formation.id}) }}">{{ formation.nomFormation }}</a>
+                        </td>
+                        <td>
+                            <a class="btn btn-warning" href="{{ path('edit_formation', {'id' : formation.id}) }}">Editer la formation</a>
+                        </td>
+                        <td>
+                            <a class="btn btn-danger" href="{{ path('delete_formation', {'id' : formation.id}) }}">Supprimer la formation</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+    {% else %}
+
+        <p>La liste globale des formations ne contient aucun élément.</p>
+
+    {% endif %}
+
+    <a class="btn btn-success" href="{{ path('new_formation') }}">Créer une formation</a>
 
 {% endblock %}

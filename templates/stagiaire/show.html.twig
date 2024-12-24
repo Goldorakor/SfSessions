@@ -16,8 +16,52 @@
 
     <h1>Sessions auxquelles le stagiaire est attaché :</h1>
     
+    {#
     {% for session in stagiaire.sessions %}
-    <a href="{{ path('show_formateur', {'id' : session.id}) }}">{{ session.nomSession }}</a>
+        <a href="{{ path('show_session', {'id' : session.id}) }}">{{ session.nomSession }}</a>
     {% endfor %}
-    
+    #}
+
+    {% if stagiaire.sessions | length > 0 %}
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>
+                        Nom de la session
+                    </th>
+                    <th>
+                        Formation rattachée
+                    </th>
+                    <th>
+                        Supprimer le rôle de référent
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for session in stagiaire.sessions %}
+                    <tr>
+                        <td>
+                            <a href="{{ path('show_session', {'id' : session.id}) }}">{{ session.nomSession }}</a>
+                        </td>
+                        <td>
+                            <a href="{{ path('show_formation', {'id' : session.formation.id}) }}">{{ session.formation.nomFormation }}</a>
+                        </td>
+                        <td>
+                            à terminer
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+    {% else %}
+
+        <p>Le stagiaire n'est inscrit à aucune session.</p>
+
+    {% endif %}
+
 {% endblock %}
+
+
+    

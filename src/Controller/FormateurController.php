@@ -25,18 +25,15 @@ class FormateurController extends AbstractController
     }
 
 
+
     #[Route('/formateur/new', name: 'new_formateur')] // 'new_formateur' est un nom cohérent qui décrit bien la fonction
-
     #[Route('/formateur/{id}/edit', name: 'edit_formateur')] // 'edit_formateur' est un nom cohérent qui décrit bien la fonction attendue
-
     public function new_edit(Formateur $formateur = null, Request $request, EntityManagerInterface $entityManager): Response // pour ajouter un formateur à notre BDD
     {
-       
         // 1. si pas de formateur, on crée un nouveau formateur (un objet formateur est bien créé ici) - s'il existe déjà, pas besoin de le créer
         if(!$formateur) {
             $formateur = new Formateur();
         }
-
 
         // 2. on crée le formulaire à partir de FormateurType (on veut ce modèle là bien entendu)
         $form = $this->createForm(FormateurType::class, $formateur); // c'est bien la méthode createForm() qui permet de créer le formulaire
@@ -57,7 +54,6 @@ class FormateurController extends AbstractController
             return $this->redirectToRoute('app_formateur');
         }
 
-
         // 3. on affiche le formulaire créé dans la page dédiée à cet affichage -> {{ form(formAddFormateur) }} --> affichage par défaut 
         return $this->render('formateur/new.html.twig', [ // 'stagiaire/new.html.twig' -> vue dédiée à l'affichage du formulaire : on crée un nouveau fichier dans le dossier stagiaire
             // 'form' => $form,  on fait passer une variable form qui prend la valeur $form
@@ -66,6 +62,7 @@ class FormateurController extends AbstractController
             'edit' => $formateur->getId() // comportement booléen
         ]);
     }
+
 
 
     #[Route('/formateur/{id}/delete', name: 'delete_formateur')]
@@ -77,6 +74,7 @@ class FormateurController extends AbstractController
         return $this->redirectToRoute('app_Fformateur'); // après une suppression, on redirige vers la liste de formateurs
     }
 
+
     
     #[Route('/formateur/{id}', name: 'show_formateur')]
     public function show(Formateur $formateur): Response
@@ -85,5 +83,4 @@ class FormateurController extends AbstractController
             'formateur' => $formateur,
         ]);
     }
-
 }

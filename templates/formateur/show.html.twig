@@ -7,14 +7,63 @@
     <h1>Détails d'un formateur</h1>
 
     <p>
-        {{ formateur.prenom }} {{ formateur.nom }} {{ formateur.email }}
+        {{ formateur.prenom }} {{ formateur.nom }}, joignable en écrivant à cette adresse : {{ formateur.email }}
     </p>
-
 
     <h1>Sessions dont le formateur est référent :</h1>
     
+    {#
     {% for session in formateur.sessions %}
-    <a href="{{ path('show_session', {'id' : session.id}) }}">{{ session.nomSession }}</a> appartenant à la catégorie <a href="{{ path('show_session', {'id' : session.categorie.id}) }}">{{ session.categorie.nomCategorie }}</a>
+        {{ session.nomSession }}<br>
     {% endfor %}
+
     
+    {% for session in formateur.sessions %}
+        <a href="{{ path('show_session', {'id' : session.id}) }}">{{ session.nomSession }}</a> relative à la formation <b>{{ session.formation.nomFormation }}</b><br>
+    {% endfor %}
+    #}
+
+    {% if formateur.sessions | length > 0 %}
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>
+                        Nom de la session
+                    </th>
+                    <th>
+                        Formation rattachée
+                    </th>
+                    <th>
+                        Supprimer le rôle de référent
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for session in formateur.sessions %}
+                    <tr>
+                        <td>
+                            <a href="{{ path('show_session', {'id' : session.id}) }}">{{ session.nomSession }}</a>
+                        </td>
+                        <td>
+                            <a href="{{ path('show_formation', {'id' : session.formation.id}) }}">{{ session.formation.nomFormation }}</a>
+                        </td>
+                        <td>
+                            à terminer
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+    {% else %}
+
+        <p>Ce formateur n'est référent d'aucune session.</p>
+
+    {% endif %}
+  
 {% endblock %}
+
+
+
+    

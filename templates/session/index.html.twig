@@ -6,10 +6,51 @@
 
     <h1>Liste des sessions</h1>
 
+    {#
     {% for session in sessions %}
-
-    <a href="{{ path('show_session', {'id' : session.id}) }}">{{ session.nomSession }}</a><br>
-        
+        <a href="{{ path('show_session', {'id' : session.id}) }}">{{ session.nomSession }}</a><br>
     {% endfor %}
+    #}
+
+    {% if sessions | length > 0 %}
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>
+                        Nom de la session
+                    </th>
+                    <th>
+                        Editer la session
+                    </th>
+                    <th>
+                        Supprimer la session
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for session in sessions %}
+                    <tr>
+                        <td>
+                            <a href="{{ path('show_session', {'id' : session.id}) }}">{{ session.nomSession }}</a>
+                        </td>
+                        <td>
+                            <a class="btn btn-warning" href="{{ path('edit_session', {'id' : session.id}) }}">Editer la session</a>
+                        </td>
+                        <td>
+                            <a class="btn btn-danger" href="{{ path('delete_session', {'id' : session.id}) }}">Supprimer la session</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+    {% else %}
+
+        <p>La liste globale des sessions ne contient aucun élément.</p>
+
+    {% endif %}
+
+    <a class="btn btn-success" href="{{ path('new_session') }}">Créer une session</a>
 
 {% endblock %}

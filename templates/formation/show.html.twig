@@ -10,38 +10,43 @@
         {{ formation.nomFormation }}
     </p>
 
-
     <h1>Liste des sessions pour cette formation :</h1>
     
     <h2>Sessions terminées :</h2>
 
-    {% if session.dateDebut < now and session.dateFin < now %} {# session.dateFin < now #}
+    {# {% if formation.session.dateDebut < now and formation.session.dateFin < now %} #} {# session.dateFin < now #}
 
         {% for session in formation.sessions %}
-            <a href="{{ path('show_session', {'id' : session.id}) }}">{{ session.nomSession }}</a>
+            {% if session.dateDebut < now and session.dateFin < now %}
+                <a href="{{ path('show_session', {'id' : session.id}) }}">{{ session.nomSession }}</a><br>
+            {% endif %}
         {% endfor %}
 
-    {% endif %}
+    {# {% endif %} #}
 
     <h2>Sessions en cours :</h2>
 
-    {% if session.dateDebut <= now and session.dateFin >= now %}
+    {# {% if formation.session.dateDebut <= now and formation.session.dateFin >= now %} #}
 
         {% for session in formation.sessions %}
-            <a href="{{ path('show_session', {'id' : session.id}) }}">{{ session.nomSession }}</a>
+            {% if session.dateDebut <= now and session.dateFin >= now %}
+                <a href="{{ path('show_session', {'id' : session.id}) }}">{{ session.nomSession }}</a><br>
+            {% endif %}
         {% endfor %}
 
-    {% endif %}
+    {# {% endif %} #}
 
     <h2>Sessions à venir :</h2>
 
-    {% if session.dateDebut > now and session.dateFin > now %} {# session.dateDebut > now #}
+    {# {% if formation.session.dateDebut > now and formation.session.dateFin > now %} #} {# session.dateDebut > now #}
 
         {% for session in formation.sessions %}
-            <a href="{{ path('show_session', {'id' : session.id}) }}">{{ session.nomSession }}</a>
+            {% if session.dateDebut > now and session.dateFin > now %}
+                <a href="{{ path('show_session', {'id' : session.id}) }}">{{ session.nomSession }}</a><br>
+            {% endif %}    
         {% endfor %}
 
-    {% endif %}
+    {# {% endif %} #}
     
 {% endblock %}
 
